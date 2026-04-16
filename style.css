@@ -35,6 +35,7 @@
 html {
     scroll-behavior: smooth;
     scroll-padding-top: var(--header-h);
+    overflow-x: hidden;
 }
 
 body {
@@ -596,9 +597,15 @@ header .container {
 
 .centered-header {
     text-align: center;
-    margin-bottom: 3.5rem;
+    margin-bottom: 2.5rem; /* Reduced for mobile */
     position: relative;
     z-index: 5;
+}
+
+@media (min-width: 768px) {
+    .centered-header {
+        margin-bottom: 3.5rem;
+    }
 }
 
 .section-underline {
@@ -634,6 +641,7 @@ header .container {
     flex-wrap: wrap;
     gap: 1.25rem;
     margin-top: 2rem;
+    margin-bottom: 2.5rem; /* Added margin to prevent overlap with cards on mobile */
 }
 
 .badge-item {
@@ -757,7 +765,7 @@ header .container {
     border-color: var(--primary);
 }
 
-.btn-sm { padding: 0.5rem 1.2rem; font-size: 0.85rem; }
+.btn-sm { padding: 0.6rem 1rem; font-size: 0.82rem; }
 
 /* 6. Skills Section - Premium Refinement */
 .skills {
@@ -899,6 +907,23 @@ header .container {
     box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
 }
 
+@media (max-width: 768px) {
+    .primary-badge {
+        position: absolute; /* Kept absolute as requested */
+        top: 0.75rem; 
+        right: 0.75rem;
+        padding: 0.2rem 0.6rem;
+        font-size: 0.55rem;
+        letter-spacing: 0.5px;
+        gap: 0.3rem;
+    }
+    
+    .primary-badge i {
+        width: 10px;
+        height: 100%;
+    }
+}
+
 .card-header {
     display: flex;
     align-items: center;
@@ -995,6 +1020,7 @@ header .container {
 .projects-modern-grid {
     display: grid;
     grid-template-columns: 1fr;
+    grid-auto-rows: 1fr; /* Ensures cards in a row have equal height */
     gap: 2.5rem;
     margin-top: 2rem;
 }
@@ -1135,20 +1161,23 @@ header .container {
 }
 
 .project-links-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Forced equal width and alignment */
     gap: 0.75rem;
     margin-top: auto;
+    width: 100%;
 }
 
 .btn-github-premium {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.6rem;
     background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
     color: white !important;
-    padding: 0.6rem 1.2rem;
+    padding: 0.6rem 1rem; /* Sync with btn-sm */
     border-radius: 10px;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 600;
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition: all 0.3s ease;
@@ -1198,13 +1227,15 @@ header .container {
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 16px;
-    padding: 1.5rem;
+    padding: 1.25rem; /* Slightly reduced for mobile */
     display: flex;
     align-items: center;
     gap: 1.25rem;
     transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
     text-decoration: none;
     color: inherit;
+    width: 100%;
+    overflow: hidden; /* Prevent text overflow */
 }
 
 .contact-info-card:hover {
@@ -1236,9 +1267,10 @@ header .container {
 }
 
 .info-details p {
-    font-size: 1rem;
+    font-size: 0.95rem; /* Slightly smaller for mobile compatibility */
     color: var(--text);
     font-weight: 500;
+    word-break: break-all; /* Prevent long email addresses from cutting */
 }
 
 /* Right side: Premium Form */
@@ -1247,7 +1279,13 @@ header .container {
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 24px;
-    padding: 2.5rem;
+    padding: 1.5rem; /* Reduced padding for mobile spacing */
+}
+
+@media (min-width: 768px) {
+    .contact-form-container {
+        padding: 2.5rem;
+    }
 }
 
 .premium-form {
@@ -1380,6 +1418,95 @@ header .container {
     border-top: 1px solid var(--border);
     color: var(--text-dim);
     font-size: 0.9rem;
+}
+
+/* Mobile Optimizations (Below 768px) */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1.25rem; /* Tighter container padding for mobile */
+    }
+
+    .project-info-premium {
+        padding: 1.5rem 1.2rem; /* Reduced horizontal padding inside card */
+    }
+
+    .projects-modern-grid {
+        gap: 2rem; 
+    }
+
+    .project-links-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 0.5rem;
+        width: 100%;
+    }
+
+    .btn-sm, .btn-github-premium {
+        flex: 1; /* Both buttons take equal width and shrink together */
+        min-width: 0; /* Allow shrinking below content size */
+        padding: 0.6rem 0.4rem;
+        font-size: 0.72rem;
+        text-align: center;
+        justify-content: center;
+        white-space: nowrap; /* Prevent text wrapping inside button */
+    }
+    
+    .btn-github-premium svg {
+        width: 14px;
+        height: 14px;
+        margin-right: 4px !important;
+    }
+
+    /* Hero Mobile Improvements */
+    .hero-visual {
+        order: 5; /* Move image directly above buttons */
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .hero-typing { order: 3; }
+    .hero-intro { order: 4; }
+
+    .hero-btns {
+        flex-wrap: wrap;
+    }
+    
+    .hero-btns .btn-gradient {
+        display: none !important; /* Hide Contact on mobile */
+    }
+    
+    .hero-btns .btn {
+        width: 100%;
+        max-width: 280px; /* Wider touch-friendly buttons */
+    }
+
+    /* Hero Stats / Cards Mobile Layout */
+    .hero-stats {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .stat-bubble {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* About Section Mobile Layout */
+    .about-content {
+        text-align: center; /* Slightly centered visually balanced text */
+    }
+
+    .about-badges {
+        flex-direction: column;
+        width: 100%;
+        gap: 1rem; /* Consistent spacing */
+    }
+
+    .badge-item {
+        width: 100%;
+        justify-content: center; /* Center content within full-width card */
+    }
 }
 
 /* 9. Media Queries (Progressive Enhancement) */
